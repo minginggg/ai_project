@@ -1,0 +1,32 @@
+{
+    "student": [
+        {
+            "name": "김민경",
+            "age": "21",
+            "job": "student",
+            "user_id": "m07111",
+            "password": "1234"
+        },
+        {
+            "name": "김개똥",
+            "age": "28",
+            "job": "employee",
+            "user_id": "gaepoo",
+            "password": "9975"
+        },
+        {
+            "name": "이나로",
+            "age": "18",
+            "job": "student",
+            "user_id": "naro",
+            "password": "2355"
+        },
+        {
+            "name": "나나",
+            "age": "12",
+            "job": "학생",
+            "user_id": "nana",
+            "password": "1452"
+        }
+    ]
+}
