@@ -18,42 +18,50 @@ def user_input():
 
 def open_csv(num):
     if num == 1:
-        f = open('login_member.csv','a', newline='',encoding='utf-8')
-        wr = csv.writer(f)
+        with open('login_member.csv','a', newline='',encoding='utf-8') as f:
+        # f = open('login_member.csv','a', newline='',encoding='utf-8')
+            wr = csv.writer(f)
     else:
-        f = open('dict_login_member.csv','a', newline='',encoding='utf-8')
-        field_name_list =["id", "pw"]
-        wr = csv.DictWriter(f,fieldnames=field_name_list)
+        with open('dict_login_member.csv', 'a', newline='',encoding='utf-8') as f:
+        # f = open('dict_login_member.csv','a', newline='',encoding='utf-8')
+            field_name_list =["id", "pw"]
+            wr = csv.DictWriter(f,fieldnames=field_name_list)
         
     return wr
 
 def read_csv():
-    f = open('login_member.csv','r',encoding='utf-8')
-    rdr = csv.reader(f)
-    return rdr
+    with open('login_member.csv', 'r', newline='') as f:
+    # f = open('login_member.csv','r',encoding='utf-8')
+        rdr = csv.reader(f)
+        return rdr
 
 def signin(id,pw):
-    read_user = read_csv()
-    for line in read_user:
-        if id == line[0]:
-            if pw == line[1]:
-                print("로그인이 완료됐습니다!")
-                return True
-        else:
-            continue
+    with open('login_member.csv','a', newline='',encoding='utf-8') as f:
+        # f = open('login_member.csv','a', newline='',encoding='utf-8')
+        read_user = rdr = csv.reader(f)
+        for line in read_user:
+            if id == line[0]:
+                if pw == line[1]:
+                    print("로그인이 완료됐습니다!")
+                    return True
+            else:
+                continue
     print("입력하신 아이디는 존재하지 않습니다.")
     return False
 
 
 
 def signup(id,pw):
-    wr = open_csv(1)
-    wr.writerow([id,pw])
+    with open('login_member.csv','a', newline='') as f:
+        wr = csv.writer(f)
+        wr.writerow([id,pw])
 
 def signup2(user_info):
-    wr = open_csv(0)
-    wr.writeheader()
-    wr.writerow(user_info)
+    with open('dict_login_member.csv', 'a', newline='',encoding='utf-8') as f:
+        field_name_list =["id", "pw"]
+        wr = csv.DictWriter(f,fieldnames=field_name_list)
+        wr.writeheader()
+        wr.writerow(user_info)
    
 
 
@@ -63,14 +71,19 @@ def signup2(user_info):
 # 3. 존재하지 않는다면 다음 단계로 넘겨주기
 
 def comfirm_user(user_id):
-    read_user = read_csv()
-    for line in read_user:
-        if user_id == line[0]:
-            print("이미 존재하는 아이디입니다.")
-            return False
-        else:
-            continue
-    return True
+    print("hello")
+    with open('login_member.csv', 'r', newline='') as f:
+        read_user = csv.reader(f)
+    # read_user = read_csv()
+        print("222222")
+        for line in read_user:
+            if user_id == line[0]:
+                print("이미 존재하는 아이디입니다.")
+                return False
+            else:
+                continue
+        print("zzzzzz")
+        return True
         
 
 
@@ -80,10 +93,11 @@ def comfirm_user(user_id):
 
 
 def userlist():
-    read_user = read_csv()
-    print("현재 존재하는 유저 :")
-    for line in read_user:
-        print(line[0])
+     with open('login_member.csv', 'r', newline='') as f:
+        read_user = csv.reader(f)
+        print("현재 존재하는 유저 :")
+        for line in read_user:
+            print(line[0])
     # TODO_4 : csvfile 에서 현재 가입되어 있는 유저 전부 출력하기
 
 
@@ -114,7 +128,7 @@ def start():
         while not comfirm_user(id):
             id, pw = user_input()
         
-
+        print("hello")
         dict_user = {
             "id": id,
             "pw": pw
@@ -130,10 +144,11 @@ def start():
     exitcheck()
 
 
+start()
 # with open('dict_login_member.csv', newline='') as csvfile:
 #     reader = csv.DictReader(csvfile)
 #     for row in reader:
 #         print(row["id"], row["pw"])
-start()
+
 
 # TODO_7 : 깃헙에 업로드하고 깃헙 주소 제출!
